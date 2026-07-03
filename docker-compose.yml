@@ -1,0 +1,76 @@
+services:
+  # 1) Skladište operativnih metapodataka
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: mlops
+      POSTGRES_USER: mlops
+      POSTGRES_PASSWORD: mlops
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mlops -d mlops"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2) Predikcioni servis (Web API)
+  api:
+    build: ./api
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: mlops
+      DB_USER: mlops
+      DB_PASSWORD: mlops
+      MODEL_PATH: /app/model/model.joblib
+    volumes:
+      - ./model:/app/model:ro
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # 3) Vizuelizacioni dashboard
+  dashboard:
+    build: ./dashboard
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: mlops
+      DB_USER: mlops
+      DB_PASSWORD: mlops
+    ports:
+      - "8501:8501"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # 4) Simulator saobraćaja - pokreće se drugom komandom:
+  # docker compose run --rm simulator
+  simulator:
+    build:
+      context: .
+      dockerfile: simulator/Dockerfile
+    environment:
+      API_URL: http://api:8000/predict
+      HEALTH_URL: http://api:8000/health
+      SLEEP_SECONDS: 1
+    volumes:
+      - ./data:/app/data:ro
+    depends_on:
+      api:
+        condition: service_healthy
+    profiles: ["tools"]
+
+volumes:
+  db_data:

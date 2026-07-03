@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Environment / local files
+.env
+.DS_Store
+.idea/
+.vscode/
+
+# Temporary archives
+project.zip
+*.tmp
