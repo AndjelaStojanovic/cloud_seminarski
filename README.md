@@ -1,6 +1,6 @@
 # ML Ops Dashboard
 
-Ovo je projekat iz predmeta Cloud infrastruktura. Cilj projekta je da se napravi jednostavan sistem za rad sa modelom mašinskog učenja, gde se model pokreće kroz API servis, a njegove metrike se prate preko dashboard-a.
+Ovo je projekat iz predmeta Cloud infrastruktura i servisi. Cilj projekta je da se napravi jednostavan sistem za rad sa modelom mašinskog učenja, gde se model pokreće kroz API servis, a njegove metrike se prate preko dashboard-a.
 
 Projekat koristi dataset Telco Customer Churn. Model predviđa da li će korisnik napustiti uslugu, na osnovu nekoliko ulaznih podataka.
 
@@ -56,8 +56,6 @@ Ciljna kolona je `Churn`.
 Model je Logistic Regression iz biblioteke scikit-learn. Trening modela se nalazi u fajlu `training/train_model.py`. Nakon treninga model se čuva kao `model/model.joblib`.
 
 ## Pokretanje projekta
-
-Za pokretanje je potrebno da bude instaliran Docker Desktop.
 
 Prva komanda pokreće bazu, API i dashboard:
 
@@ -150,4 +148,4 @@ docker compose down -v
 
 ## Napomena
 
-Model je namerno jednostavan, jer je glavni cilj projekta da se prikaže infrastruktura oko modela: API servis, Docker Compose, baza podataka, simulator saobraćaja i dashboard za praćenje metrika.
+Model je jednostavan, jer je glavni cilj projekta da se prikaže infrastruktura oko modela: API servis, Docker Compose, baza podataka, simulator saobraćaja i dashboard za praćenje metrika.
