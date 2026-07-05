@@ -1,4 +1,4 @@
-# ML Ops Dashboard
+# Dashboard za operativnu inteligenciju: praćenje ML modela u realnom vremenu
 
 Ovo je projekat iz predmeta Cloud infrastruktura i servisi. Cilj projekta je da se napravi jednostavan sistem za rad sa modelom mašinskog učenja, gde se model pokreće kroz API servis, a njegove metrike se prate preko dashboard-a.
 
