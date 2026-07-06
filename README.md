@@ -29,7 +29,7 @@ Model se ne trenira svaki put kada se pokrene API. Model je prethodno istreniran
 ## Struktura projekta
 
 ```text
-ml-ops-dashboard/
+cloud_seminarski/
 ├── api/                     # FastAPI aplikacija
 ├── dashboard/               # Streamlit dashboard
 ├── data/                    # CSV fajlovi
