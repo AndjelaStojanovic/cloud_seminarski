@@ -1,22 +1,3 @@
-"""
-train_model.py
-
-Jednokratna skripta za treniranje jednostavnog modela mašinskog učenja.
-Pokreće se RUČNO, van Docker okruženja (lokalno ili u Jupyter/Colab),
-PRE prvog pokretanja docker-compose sistema.
-
-Šta radi:
-1. Učitava CSV dataset (Telco Customer Churn).
-2. Deli podatke na dva dela:
-   - manji deo (TRAIN_FRACTION) koristi se za trening modela,
-   - veći deo se čuva kao data/simulation_stream.csv i kasnije se koristi
-     u simulator.py da generiše "realan saobraćaj" ka API servisu.
-3. Trenira jednostavan Logistic Regression model (scikit-learn).
-4. Serijalizuje istrenirani model (pipeline) u model/model.joblib pomoću joblib.
-
-Predikcioni servis (api/main.py) NE trenira model - samo učitava ovaj fajl.
-"""
-
 import os
 
 import joblib
@@ -32,7 +13,6 @@ SIMULATION_STREAM_PATH = os.path.join(BASE_DIR, "data", "simulation_stream.csv")
 MODEL_DIR = os.path.join(BASE_DIR, "model")
 MODEL_PATH = os.path.join(MODEL_DIR, "model.joblib")
 
-# Jednostavan skup numeričkih atributa - dovoljan za jednostavnu logističku regresiju
 FEATURE_COLUMNS = ["tenure", "MonthlyCharges", "TotalCharges", "SeniorCitizen"]
 TARGET_COLUMN = "Churn"
 
@@ -42,8 +22,6 @@ TRAIN_FRACTION = 0.3  # 30% za trening, 70% za simulaciju saobraćaja
 def load_and_clean_data(path: str) -> pd.DataFrame:
     df = pd.read_csv(path)
 
-    # U originalnom Telco Customer Churn datasetu, TotalCharges ume da bude
-    # prazan string za korisnike sa tenure = 0 - konvertujemo u broj i čistimo.
     df["TotalCharges"] = pd.to_numeric(df["TotalCharges"], errors="coerce")
     df["TotalCharges"] = df["TotalCharges"].fillna(0)
 

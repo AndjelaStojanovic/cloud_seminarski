@@ -1,5 +1,4 @@
 services:
-  # 1) Skladište operativnih metapodataka
   db:
     image: postgres:15-alpine
     environment:
@@ -17,7 +16,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # 2) Predikcioni servis (Web API)
   api:
     build: ./api
     environment:
@@ -40,7 +38,6 @@ services:
       timeout: 5s
       retries: 10
 
-  # 3) Vizuelizacioni dashboard
   dashboard:
     build: ./dashboard
     environment:
@@ -55,8 +52,6 @@ services:
       db:
         condition: service_healthy
 
-  # 4) Simulator saobraćaja - pokreće se drugom komandom:
-  # docker compose run --rm simulator
   simulator:
     build:
       context: .

@@ -1,13 +1,3 @@
-"""
-FastAPI predikcioni servis.
-
-Servis:
-- pri pokretanju učitava već istreniran model iz model/model.joblib,
-- izlaže POST /predict endpoint,
-- meri latenciju inferencije u milisekundama,
-- upisuje ulazne parametre, predikciju i latenciju u PostgreSQL kroz BackgroundTasks.
-"""
-
 import os
 import time
 
@@ -50,7 +40,6 @@ def get_connection():
 
 
 def log_prediction(data: CustomerData, prediction: str, latency_ms: float) -> None:
-    """Upisuje operativne podatke o predikciji u bazu."""
     payload = data.model_dump()
 
     try:
@@ -77,7 +66,6 @@ def log_prediction(data: CustomerData, prediction: str, latency_ms: float) -> No
         cur.close()
         conn.close()
     except Exception as e:
-        # Greška upisa ne treba da obori servis koji vraća predikciju.
         print(f"Greška prilikom upisa u bazu: {e}")
 
 

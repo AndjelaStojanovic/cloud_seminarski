@@ -1,13 +1,3 @@
-"""
-Streamlit dashboard za operativnu inteligenciju.
-
-Čita podatke iz PostgreSQL tabele predictions_log i prikazuje:
-1. broj predikcija u poslednjih N minuta,
-2. prosečnu latenciju kroz vreme,
-3. distribuciju predviđenih klasa,
-4. osnovnu distribuciju ulaznih atributa kao indikator data drift-a.
-"""
-
 import os
 import time
 

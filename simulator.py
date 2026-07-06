@@ -1,10 +1,3 @@
-"""
-Simulator klijentskog saobraćaja.
-
-Čita redove iz data/simulation_stream.csv i šalje ih kao HTTP POST zahteve
-na /predict, sa kratkom pauzom između zahteva.
-"""
-
 import os
 import time
 
