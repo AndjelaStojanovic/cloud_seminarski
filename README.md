@@ -37,7 +37,7 @@ cloud_seminarski/
 ├── model/                   # Sačuvan model
 ├── simulator/               # Dockerfile za simulator
 ├── training/                # Skripta za trening modela
-├── docker-compose.yml
+├── compose.yaml
 ├── simulator.py
 └── README.md
 ```
